@@ -22,10 +22,16 @@ Vue.component('spark-simple-registration-screen', {
             invitation: null,
             failedToLoadInvitation: false,
 
-            registerForm: new SparkForm({
-                team_name: '', name: '', email: '', password: '', password_confirmation: '',
-                plan: '', terms: false, invitation: null
-            }),
+            registerForm: $.extend(true, new SparkForm({
+                team_name: '',
+                name: '',
+                email: '',
+                password: '',
+                password_confirmation: '',
+                plan: '',
+                terms: false,
+                invitation: null
+            }), Spark.forms.registration),
         };
     },
 

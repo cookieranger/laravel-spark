@@ -31,10 +31,18 @@ Vue.component('spark-subscription-register-screen', {
             invitation: null,
             failedToLoadInvitation: false,
 
-            registerForm: new SparkForm({
-                team_name: '', name: '', email: '', password: '', password_confirmation: '',
-                plan: '', terms: false, coupon: null, invitation: null, stripe_token: null
-            }),
+            registerForm: $.extend(true, new SparkForm({
+                team_name: '',
+                name: '',
+                email: '',
+                password: '',
+                password_confirmation: '',
+                plan: '',
+                terms: false,
+                coupon: null,
+                invitation: null,
+                stripe_token: null
+            }), Spark.forms.registration),
 
             cardForm: new SparkForm({
                 number: '', cvc: '', month: '', year: '', zip: ''

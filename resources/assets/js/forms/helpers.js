@@ -33,6 +33,13 @@ window.SparkForm = function (data) {
 _.extend(Spark, require('./http'));
 
 /**
+ * Initialize the Spark form extension points.
+ */
+Spark.forms = {
+    registration: {},
+};
+
+/**
  * Define the Spark form input components.
  */
 require('./components');
