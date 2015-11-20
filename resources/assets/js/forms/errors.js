@@ -2,15 +2,13 @@
  * Spark form error collection class.
  */
 window.SparkFormErrors = function () {
-    var self = this;
-
     this.errors = {};
 
     /**
      * Determine if the collection has any errors.
      */
     this.hasErrors = function () {
-        return ! _.isEmpty(self.errors);
+        return ! _.isEmpty(this.errors);
     };
 
 
@@ -18,7 +16,7 @@ window.SparkFormErrors = function () {
      * Determine if the collection has errors for a given field.
      */
     this.has = function (field) {
-        return _.indexOf(_.keys(self.errors), field) > -1;
+        return _.indexOf(_.keys(this.errors), field) > -1;
     };
 
 
@@ -26,7 +24,7 @@ window.SparkFormErrors = function () {
      * Get all of the raw errors for the collection.
      */
     this.all = function () {
-        return self.errors;
+        return this.errors;
     };
 
 
@@ -34,7 +32,7 @@ window.SparkFormErrors = function () {
      * Get all of the errors for the collection in a flat array.
      */
     this.flatten = function () {
-        return _.flatten(_.toArray(self.errors));
+        return _.flatten(_.toArray(this.errors));
     };
 
 
@@ -42,8 +40,8 @@ window.SparkFormErrors = function () {
      * Get the first error message for a given field.
      */
     this.get = function (field) {
-        if (self.has(field)) {
-            return self.errors[field][0];
+        if (this.has(field)) {
+            return this.errors[field][0];
         }
     };
 
@@ -53,9 +51,9 @@ window.SparkFormErrors = function () {
      */
     this.set = function (errors) {
         if (typeof errors === 'object') {
-            self.errors = errors;
+            this.errors = errors;
         } else {
-            self.errors = {'field': ['Something went wrong. Please try again.']};
+            this.errors = {'field': ['Something went wrong. Please try again.']};
         }
     };
 
@@ -64,6 +62,6 @@ window.SparkFormErrors = function () {
      * Forget all of the errors currently in the collection.
      */
     this.forget = function () {
-        self.errors = {};
+        this.errors = {};
     };
 };

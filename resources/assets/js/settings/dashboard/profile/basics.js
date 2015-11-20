@@ -1,4 +1,4 @@
-Vue.component('spark-settings-profile-basics-screen', {
+Vue.component('spark-settings-profile-basics-screen', $.extend(true, {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -60,4 +60,4 @@ Vue.component('spark-settings-profile-basics-screen', {
                 });
         }
     }
-});
+}, Spark.components.profileBasics));
