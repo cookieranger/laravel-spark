@@ -15,10 +15,10 @@ Vue.component('spark-settings-profile-basics-screen', {
             user: null,
 
             forms: {
-                updateProfileBasics: new SparkForm({
+                updateProfileBasics: $.extend(true, new SparkForm({
                     name: '',
                     email: '',
-                })
+                }), Spark.forms.updateProfileBasics)
             }
         };
     },

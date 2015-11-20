@@ -37,6 +37,8 @@ _.extend(Spark, require('./http'));
  */
 Spark.forms = {
     registration: {},
+    updateProfileBasics: {},
+    updateTeamOwnerBasics: {}
 };
 
 /**
