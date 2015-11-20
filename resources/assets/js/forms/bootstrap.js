@@ -1,19 +1,4 @@
 /**
- * Define the form error collection class.
- */
-require('./errors');
-
-/**
- * Load the SparkForm helper class.
- */
-require('./instance');
-
-/**
- * Add additional form helpers to the Spark object.
- */
-_.extend(Spark, require('./http'));
-
-/**
  * Initialize the Spark form extension points.
  */
 Spark.forms = {
@@ -21,6 +6,21 @@ Spark.forms = {
     updateProfileBasics: {},
     updateTeamOwnerBasics: {}
 };
+
+/**
+ * Load the SparkForm helper class.
+ */
+require('./instance');
+
+/**
+ * Define the form error collection class.
+ */
+require('./errors');
+
+/**
+ * Add additional form helpers to the Spark object.
+ */
+_.extend(Spark, require('./http'));
 
 /**
  * Define the Spark form input components.
