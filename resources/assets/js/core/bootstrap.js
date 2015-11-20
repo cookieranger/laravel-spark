@@ -7,8 +7,8 @@ if (window.Vue === undefined) {
 	window.Vue = require('vue');
 }
 
-
 require('vue-resource');
+
 Vue.http.headers.common['X-CSRF-TOKEN'] = Spark.csrfToken;
 
 /**
@@ -19,12 +19,16 @@ window.Promise = require('promise');
 /*
  * Load Underscore.js, used for map / reduce on arrays.
  */
-if (window._ === undefined) window._ = require('underscore');
+if (window._ === undefined) {
+	window._ = require('underscore');
+}
 
 /*
  * Load Moment.js, used for date formatting and presentation.
  */
-if (window.moment === undefined) window.moment = require('moment');
+if (window.moment === undefined) {
+	window.moment = require('moment');
+}
 
 /*
  * Load jQuery and Bootstrap jQuery, used for front-end interaction.
@@ -38,4 +42,4 @@ require('bootstrap-sass/assets/javascripts/bootstrap');
 /**
  * Load the Spark form utilities.
  */
-require('./../forms/helpers');
+require('./../forms/bootstrap');

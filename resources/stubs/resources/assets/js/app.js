@@ -14,7 +14,7 @@
  |
  */
 
-require('laravel-spark/core/dependencies');
+require('laravel-spark/core/bootstrap');
 
 require('./spark/components')
 
