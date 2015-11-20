@@ -9,6 +9,9 @@ Vue.component('spark-simple-registration-screen', {
 
         var queryString = URI(document.URL).query(true);
 
+        /**
+         * Load the query string items such as the invitation.
+         */
         if (queryString.invitation) {
             this.getInvitation(queryString.invitation);
         }

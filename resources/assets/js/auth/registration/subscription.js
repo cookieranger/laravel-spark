@@ -9,6 +9,9 @@ Vue.component('spark-subscription-register-screen', {
 
         var queryString = URI(document.URL).query(true);
 
+        /**
+         * Load the query string items such as the coupon and invitation.
+         */
         if (queryString.coupon) {
             this.getCoupon(queryString.coupon);
         }
