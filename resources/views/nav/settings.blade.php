@@ -43,7 +43,7 @@
 							<i class="fa fa-btn fa-fw fa-check text-success"></i>@{{ team.name }}
 						</span>
 
-						<span v-if="team.id !== user.current_team_id">
+						<span v-else>
 							<i class="fa fa-btn fa-fw"></i>@{{ team.name }}
 						</span>
 					</a>
