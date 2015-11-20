@@ -5,8 +5,8 @@
  |--------------------------------------------------------------------------
  |
  | First, we will load all of the "core" dependencies for Spark which are
- | libraries such as Vue and jQuery. Then, we will load the components
- | which manage the Spark screens such as the user settings screens.
+ | libraries such as Vue and jQuery. This also loads the Spark helpers
+ | for things such as HTTP calls, forms, and form validation errors.
  |
  | Next, we will create the root Vue application for Spark. This'll start
  | the entire application and attach it to the DOM. Of course, you may
@@ -15,7 +15,5 @@
  */
 
 require('laravel-spark/core/bootstrap');
-
-require('./spark/components')
 
 new Vue(require('laravel-spark'));

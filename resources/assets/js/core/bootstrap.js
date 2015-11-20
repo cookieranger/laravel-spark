@@ -40,13 +40,15 @@ if (window.$ === undefined || window.jQuery === undefined) {
 require('bootstrap-sass/assets/javascripts/bootstrap');
 
 /**
- * Load the Spark form utilities.
- */
-require('./../forms/bootstrap');
-
-/**
  * Define the Spark component extension points.
  */
 Spark.components = {
-	profileBasics: {}
+	profileBasics: {},
+	teamOwnerBasics: {},
+	editTeamMember: {}
 };
+
+/**
+ * Load the Spark form utilities.
+ */
+require('./../forms/bootstrap');

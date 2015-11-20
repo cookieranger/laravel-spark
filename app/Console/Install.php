@@ -225,11 +225,6 @@ class Install extends Command
             SPARK_PATH.'/resources/stubs/resources/assets/js/app.js',
             base_path('resources/assets/js/app.js')
         );
-
-        copy(
-            SPARK_PATH.'/resources/stubs/resources/assets/js/spark/components.js',
-            base_path('resources/assets/js/spark/components.js')
-        );
     }
 
     /**

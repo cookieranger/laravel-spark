@@ -1,4 +1,4 @@
-Vue.component('spark-team-settings-edit-team-member-screen', {
+Vue.component('spark-team-settings-edit-team-member-screen', $.extend(true, {
     props: ['teamMember'],
 
     /*
@@ -88,4 +88,4 @@ Vue.component('spark-team-settings-edit-team-member-screen', {
                 });
         }
 	}
-});
+}, Spark.components.editTeamMember));

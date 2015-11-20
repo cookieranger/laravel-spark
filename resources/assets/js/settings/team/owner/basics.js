@@ -1,4 +1,4 @@
-Vue.component('spark-team-settings-owner-basics-screen', {
+Vue.component('spark-team-settings-owner-basics-screen', $.extend(true, {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -59,4 +59,4 @@ Vue.component('spark-team-settings-owner-basics-screen', {
                 });
     	}
     }
-});
+}, Spark.components.teamOwnerBasics));
