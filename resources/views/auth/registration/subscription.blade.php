@@ -21,7 +21,7 @@
 		</div>
 
 		<!-- Subscription Plan Selector -->
-		<div class="col-md-12" v-if="plans.length > 1 && plansAreLoaded && ! registerForm.plan">
+		<div class="col-md-12" v-if="plans.length > 1 && plansAreLoaded && ! forms.registration.plan">
 			@include('spark::auth.registration.subscription.plans.selector')
 		</div>
 
@@ -33,7 +33,7 @@
 			</div>
 
 			<!-- Current Coupon / Discount -->
-			<div class="row" v-if="currentCoupon && registerForm.plan && ! freePlanIsSelected">
+			<div class="row" v-if="currentCoupon && forms.registration.plan && ! freePlanIsSelected">
 				@include('spark::auth.registration.subscription.coupon')
 			</div>
 

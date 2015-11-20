@@ -37,17 +37,17 @@
 
         <div class="panel-body">
             <spark-error-alert :form="subscribeForm"></spark-error-alert>
-            <spark-error-alert :form="cardForm"></spark-error-alert>
+            <spark-error-alert :form="forms.card"></spark-error-alert>
 
             <form class="form-horizontal" role="form">
-                <div class="form-group" :class="{'has-error': cardForm.errors.has('number')}">
+                <div class="form-group" :class="{'has-error': forms.card.errors.has('number')}">
                     <label for="number" class="col-md-4 control-label">Card Number</label>
 
                     <div class="col-md-6">
-                        <input type="text" class="form-control spark-first-field" name="number" data-stripe="number" v-model="cardForm.number">
+                        <input type="text" class="form-control spark-first-field" name="number" data-stripe="number" v-model="forms.card.number">
 
-                        <span class="help-block" v-show="cardForm.errors.has('number')">
-                            <strong>@{{ cardForm.errors.get('number') }}</strong>
+                        <span class="help-block" v-show="forms.card.errors.has('number')">
+                            <strong>@{{ forms.card.errors.get('number') }}</strong>
                         </span>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     <label for="cvc" class="col-md-4 control-label">Security Code</label>
 
                     <div class="col-md-6">
-                        <input type="text" class="form-control" name="cvc" data-stripe="cvc" v-model="cardForm.cvc">
+                        <input type="text" class="form-control" name="cvc" data-stripe="cvc" v-model="forms.card.cvc">
                     </div>
                 </div>
 
@@ -64,11 +64,11 @@
                     <label class="col-md-4 control-label">Expiration</label>
 
                     <div class="col-md-3">
-                        <input type="text" class="form-control" name="month" placeholder="MM" maxlength="2" data-stripe="exp-month" v-model="cardForm.month">
+                        <input type="text" class="form-control" name="month" placeholder="MM" maxlength="2" data-stripe="exp-month" v-model="forms.card.month">
                     </div>
 
                     <div class="col-md-3">
-                        <input type="text" class="form-control" name="year" placeholder="YYYY" maxlength="4" data-stripe="exp-year" v-model="cardForm.year">
+                        <input type="text" class="form-control" name="year" placeholder="YYYY" maxlength="4" data-stripe="exp-year" v-model="forms.card.year">
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
                     <label for="zip" class="col-md-4 control-label">ZIP / Postal Code</label>
 
                     <div class="col-md-6">
-                        <input type="text" class="form-control" name="zip" v-model="cardForm.zip">
+                        <input type="text" class="form-control" name="zip" v-model="forms.card.zip">
                     </div>
                 </div>
 

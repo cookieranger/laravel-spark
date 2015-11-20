@@ -34,22 +34,24 @@ Vue.component('spark-subscription-register-screen', {
             invitation: null,
             failedToLoadInvitation: false,
 
-            registerForm: $.extend(true, new SparkForm({
-                team_name: '',
-                name: '',
-                email: '',
-                password: '',
-                password_confirmation: '',
-                plan: '',
-                terms: false,
-                coupon: null,
-                invitation: null,
-                stripe_token: null
-            }), Spark.forms.registration),
+            forms: {
+                registration: $.extend(true, new SparkForm({
+                    team_name: '',
+                    name: '',
+                    email: '',
+                    password: '',
+                    password_confirmation: '',
+                    plan: '',
+                    terms: false,
+                    coupon: null,
+                    invitation: null,
+                    stripe_token: null
+                }), Spark.forms.registration),
 
-            cardForm: new SparkForm({
-                number: '', cvc: '', month: '', year: '', zip: ''
-            })
+                card: new SparkForm({
+                    number: '', cvc: '', month: '', year: '', zip: ''
+                })
+            }
         };
     },
 
@@ -291,7 +293,7 @@ Vue.component('spark-subscription-register-screen', {
          */
         setSelectedPlan: function(plan) {
             this.selectedPlan = plan;
-            this.registerForm.plan = plan.id;
+            this.forms.registration.plan = plan.id;
         },
 
 
@@ -300,7 +302,7 @@ Vue.component('spark-subscription-register-screen', {
          */
         selectAnotherPlan: function() {
             this.selectedPlan = null;
-            this.registerForm.plan = '';
+            this.forms.registration.plan = '';
         },
 
 
@@ -310,10 +312,10 @@ Vue.component('spark-subscription-register-screen', {
         register: function() {
             var self = this;
 
-            this.cardForm.errors.forget();
-            this.registerForm.errors.forget();
+            this.forms.card.errors.forget();
+            this.forms.registration.errors.forget();
 
-            this.registerForm.busy = true;
+            this.forms.registration.busy = true;
 
             if (this.freePlanIsSelected) {
                 return this.sendRegistration();
@@ -325,21 +327,21 @@ Vue.component('spark-subscription-register-screen', {
                 the user's credit cards instead of storing the numbers.
             */
             var payload = {
-                name: this.registerForm.name,
-                number: this.cardForm.number,
-                cvc: this.cardForm.cvc,
-                exp_month: this.cardForm.month,
-                exp_year: this.cardForm.year,
-                address_zip: this.cardForm.zip
+                name: this.forms.registration.name,
+                number: this.forms.card.number,
+                cvc: this.forms.card.cvc,
+                exp_month: this.forms.card.month,
+                exp_year: this.forms.card.year,
+                address_zip: this.forms.card.zip
             };
 
             Stripe.card.createToken(payload, function (status, response) {
                 if (response.error) {
-                    self.cardForm.errors.set({number: [response.error.message]})
+                    self.forms.card.errors.set({number: [response.error.message]})
 
-                    self.registerForm.busy = false;
+                    self.forms.registration.busy = false;
                 } else {
-                    self.registerForm.stripe_token = response.id;
+                    self.forms.registration.stripe_token = response.id;
                     self.sendRegistration();
                 }
             });
@@ -351,21 +353,21 @@ Vue.component('spark-subscription-register-screen', {
          */
         sendRegistration: function() {
             if (this.currentCoupon && ! this.freePlanIsSelected) {
-                this.registerForm.coupon = this.currentCoupon.id;
+                this.forms.registration.coupon = this.currentCoupon.id;
             }
 
             if (this.invitation) {
-                this.registerForm.invitation = this.invitation.token;
+                this.forms.registration.invitation = this.invitation.token;
             }
 
-            this.$http.post('/register', this.registerForm)
+            this.$http.post('/register', this.forms.registration)
                 .success(function(response) {
                     window.location = '/home';
                 })
                 .error(function(errors) {
-                    this.registerForm.busy = false;
+                    this.forms.registration.busy = false;
 
-                    this.registerForm.errors.set(errors);
+                    this.forms.registration.errors.set(errors);
                 });
         },
 

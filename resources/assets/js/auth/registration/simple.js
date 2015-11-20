@@ -25,16 +25,18 @@ Vue.component('spark-simple-registration-screen', {
             invitation: null,
             failedToLoadInvitation: false,
 
-            registerForm: $.extend(true, new SparkForm({
-                team_name: '',
-                name: '',
-                email: '',
-                password: '',
-                password_confirmation: '',
-                plan: '',
-                terms: false,
-                invitation: null
-            }), Spark.forms.registration),
+            forms: {
+                registration: $.extend(true, new SparkForm({
+                    team_name: '',
+                    name: '',
+                    email: '',
+                    password: '',
+                    password_confirmation: '',
+                    plan: '',
+                    terms: false,
+                    invitation: null
+                }), Spark.forms.registration)
+            }
         };
     },
 
@@ -47,7 +49,7 @@ Vue.component('spark-simple-registration-screen', {
             this.$http.get('/spark/api/teams/invitation/' + invitation)
                 .success(function (invitation) {
                     this.invitation = invitation;
-                    this.registerForm.invitation = invitation.token;
+                    this.forms.registration.invitation = invitation.token;
 
                     setTimeout(function () {
                         $(function() {
@@ -67,7 +69,7 @@ Vue.component('spark-simple-registration-screen', {
          * Initialize the registration process.
          */
         register: function() {
-            Spark.post('/register', this.registerForm)
+            Spark.post('/register', this.forms.registration)
                 .then(function (response) {
                     window.location = response.path;
                 });
