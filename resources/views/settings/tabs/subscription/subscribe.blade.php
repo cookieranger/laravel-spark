@@ -1,5 +1,5 @@
 <!-- Subscribe Plan Selector -->
-<div class="panel panel-default" v-if=" ! user.stripe_active && ! userIsOnGracePeriod && ! subscribeForm.plan">
+<div class="panel panel-default" v-if=" ! user.stripe_active && ! userIsOnGracePeriod && ! forms.subscribe.plan">
     <div class="panel-heading">Subscribe</div>
 
     <div class="panel-body">
@@ -8,7 +8,7 @@
 </div>
 
 <!-- Plan Is Selected -->
-<div v-if=" ! user.stripe_active && ! userIsOnGracePeriod && subscribeForm.plan">
+<div v-if=" ! user.stripe_active && ! userIsOnGracePeriod && forms.subscribe.plan">
     <!-- Selected Plan / Select Another Plan -->
     <div class="panel panel-default">
         <div class="panel-heading">Your Plan</div>
@@ -36,7 +36,7 @@
         </div>
 
         <div class="panel-body">
-            <spark-error-alert :form="subscribeForm"></spark-error-alert>
+            <spark-error-alert :form="forms.subscribe"></spark-error-alert>
             <spark-error-alert :form="forms.card"></spark-error-alert>
 
             <form class="form-horizontal" role="form">
@@ -80,25 +80,25 @@
                     </div>
                 </div>
 
-                <div class="form-group" :class="{'has-error': subscribeForm.errors.has('terms')}">
+                <div class="form-group" :class="{'has-error': forms.subscribe.errors.has('terms')}">
                     <div class="col-md-6 col-md-offset-4">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" v-model="subscribeForm.terms">
+                                <input type="checkbox" v-model="forms.subscribe.terms">
                                 I Accept The <a href="/terms" target="_blank">Terms Of Service</a>
                             </label>
                         </div>
 
-                        <span class="help-block" v-show="subscribeForm.errors.has('terms')">
-                            <strong>@{{ subscribeForm.errors.get('terms') }}</strong>
+                        <span class="help-block" v-show="forms.subscribe.errors.has('terms')">
+                            <strong>@{{ forms.subscribe.errors.get('terms') }}</strong>
                         </span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary" @click.prevent="subscribe" :disabled="subscribeForm.busy">
-                            <span v-if="subscribeForm.busy">
+                        <button type="submit" class="btn btn-primary" @click.prevent="subscribe" :disabled="forms.subscribe.busy">
+                            <span v-if="forms.subscribe.busy">
                                 <i class="fa fa-btn fa-spinner fa-spin"></i> Subscribing
                             </span>
 

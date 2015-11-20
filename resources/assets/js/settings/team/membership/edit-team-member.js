@@ -10,9 +10,11 @@ Vue.component('spark-team-settings-edit-team-member-screen', {
 	        team: null,
 	        roles: [],
 
-            updateTeamMemberForm: new SparkForm({
-                role: ''
-            })
+            forms: {
+                updateTeamMember: new SparkForm({
+                    role: ''
+                })
+            }
 		};
 	},
 
@@ -22,7 +24,7 @@ Vue.component('spark-team-settings-edit-team-member-screen', {
          * Watch for updates to the "teamMember" data.
          */
         'teamMember': function (member) {
-            this.updateTeamMemberForm.role = member.pivot.role;
+            this.forms.updateTeamMember.role = member.pivot.role;
         }
     },
 
@@ -78,7 +80,7 @@ Vue.component('spark-team-settings-edit-team-member-screen', {
         updateTeamMember: function () {
             var self = this;
 
-            Spark.put('/settings/teams/' + this.team.id + '/members/' + this.teamMember.id, this.updateTeamMemberForm)
+            Spark.put('/settings/teams/' + this.team.id + '/members/' + this.teamMember.id, this.forms.updateTeamMember)
                 .then(function () {
                     self.$dispatch('updateTeam');
 

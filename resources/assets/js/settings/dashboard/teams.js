@@ -18,11 +18,13 @@ Vue.component('spark-settings-teams-screen', {
 
             teamToDelete: null,
 
-            createTeamForm: new SparkForm({
-                name: ''
-            }),
+            forms: {
+                createTeam: new SparkForm({
+                    name: ''
+                }),
 
-            deleteTeamForm: new SparkForm({})
+                deleteTeam: new SparkForm({})
+            }
         };
     },
 
@@ -67,9 +69,9 @@ Vue.component('spark-settings-teams-screen', {
         createTeam: function () {
             var self = this;
 
-            Spark.post('/settings/teams', this.createTeamForm)
+            Spark.post('/settings/teams', this.forms.createTeam)
                 .then(function () {
-                    self.createTeamForm.name = '';
+                    self.forms.createTeam.name = '';
 
                     self.$dispatch('updateUser');
                     self.$dispatch('updateTeams');
@@ -109,7 +111,7 @@ Vue.component('spark-settings-teams-screen', {
         deleteTeam: function () {
             var self = this;
 
-            Spark.delete('/settings/teams/' + this.teamToDelete.id, this.deleteTeamForm)
+            Spark.delete('/settings/teams/' + this.teamToDelete.id, this.forms.deleteTeam)
                 .then(function () {
                     $('#modal-delete-team').modal('hide');
 

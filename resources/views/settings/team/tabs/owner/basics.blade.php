@@ -3,23 +3,23 @@
         <div class="panel-heading">The Basics</div>
 
         <div class="panel-body">
-            <spark-error-alert :form="updateTeamBasicsForm"></spark-error-alert>
+            <spark-error-alert :form="forms.updateTeamBasics"></spark-error-alert>
 
-            <div class="alert alert-success" v-if="updateTeamBasicsForm.successful">
+            <div class="alert alert-success" v-if="forms.updateTeamBasics.successful">
                 <strong>Great!</strong> Your team was successfully updated.
             </div>
 
             <form class="form-horizontal" role="form">
                 <spark-text :display="'Name'"
-                            :form="updateTeamBasicsForm"
+                            :form="forms.updateTeamBasics"
                             :name="'name'"
-                            :input.sync="updateTeamBasicsForm.name">
+                            :input.sync="forms.updateTeamBasics.name">
                 </spark-text>
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary" @click.prevent="updateTeam" :disabled="updateTeamBasicsForm.busy">
-                            <span v-if="updateTeamBasicsForm.busy">
+                        <button type="submit" class="btn btn-primary" @click.prevent="updateTeam" :disabled="forms.updateTeamBasics.busy">
+                            <span v-if="forms.updateTeamBasics.busy">
                                 <i class="fa fa-btn fa-spinner fa-spin"></i> Updating
                             </span>
 

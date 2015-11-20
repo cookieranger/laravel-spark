@@ -14,10 +14,12 @@ Vue.component('spark-settings-profile-basics-screen', {
         return {
             user: null,
 
-            updateProfileBasicsForm: new SparkForm({
-                name: '',
-                email: '',
-            })
+            forms: {
+                updateProfileBasics: new SparkForm({
+                    name: '',
+                    email: '',
+                })
+            }
         };
     },
 
@@ -41,8 +43,8 @@ Vue.component('spark-settings-profile-basics-screen', {
          * Update the user profile form with new user information.
          */
         updateProfileBasicsFormForNewUser: function (user) {
-            this.updateProfileBasicsForm.name = user.name;
-            this.updateProfileBasicsForm.email = user.email;
+            this.forms.updateProfileBasics.name = user.name;
+            this.forms.updateProfileBasics.email = user.email;
         },
 
 
@@ -52,7 +54,7 @@ Vue.component('spark-settings-profile-basics-screen', {
         updateProfileBasics: function () {
             var self = this;
 
-            Spark.put('/settings/user', this.updateProfileBasicsForm)
+            Spark.put('/settings/user', this.forms.updateProfileBasics)
                 .then(function () {
                     self.$dispatch('updateUser');
                 });

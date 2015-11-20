@@ -9,9 +9,9 @@
 			VAT identification number, or address of record, add it here. We'll make sure it shows up on every receipt.
 		</div>
 
-		<spark-errors :form="extraBillingInfoForm"></spark-errors>
+		<spark-errors :form="forms.extraBillingInfo"></spark-errors>
 
-		<div class="alert alert-success" v-if="extraBillingInfoForm.successful">
+		<div class="alert alert-success" v-if="forms.extraBillingInfo.successful">
 			<strong>Done!</strong> Your extra billing information has been updated.
 		</div>
 
@@ -20,14 +20,14 @@
 				<label for="key" class="col-md-4 control-label">Extra Billing Information</label>
 
 				<div class="col-md-6">
-					<textarea class="form-control" rows="7" v-model="extraBillingInfoForm.text"></textarea>
+					<textarea class="form-control" rows="7" v-model="forms.extraBillingInfo.text"></textarea>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<div class="col-md-offset-4 col-md-6">
-					<button type="submit" class="btn btn-primary" @click.prevent="updateExtraBillingInfo" :disabled="extraBillingInfoForm.busy">
-						<span v-if="extraBillingInfoForm.busy">
+					<button type="submit" class="btn btn-primary" @click.prevent="updateExtraBillingInfo" :disabled="forms.extraBillingInfo.busy">
+						<span v-if="forms.extraBillingInfo.busy">
 							<i class="fa fa-btn fa-spin fa-spinner "></i> Updating
 						</span>
 

@@ -6,20 +6,20 @@
             <div class="panel-heading">Create Team</div>
 
             <div class="panel-body">
-                <spark-error-alert :form="createTeamForm"></spark-error-alert>
+                <spark-error-alert :form="forms.createTeam"></spark-error-alert>
 
                 <form method="POST" class="form-horizontal" role="form">
 
                     <spark-text :display="'Name'"
-                                :form="createTeamForm"
+                                :form="forms.createTeam"
                                 :name="'name'"
-                                :input.sync="createTeamForm.name">
+                                :input.sync="forms.createTeam.name">
                     </spark-text>
 
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary" @click.prevent="createTeam" :disabled="createTeamForm.busy">
-                                <span v-if="createTeamForm.busy">
+                            <button type="submit" class="btn btn-primary" @click.prevent="createTeam" :disabled="forms.createTeam.busy">
+                                <span v-if="forms.createTeam.busy">
                                     <i class="fa fa-btn fa-spinner fa-spin"></i> Creating
                                 </span>
 
@@ -148,8 +148,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 
-                        <button type="button" class="btn btn-danger" @click.prevent="deleteTeam" :disabled="deleteTeamForm.busy">
-                            <span v-if="deleteTeamForm.busy">
+                        <button type="button" class="btn btn-danger" @click.prevent="deleteTeam" :disabled="forms.deleteTeam.busy">
+                            <span v-if="forms.deleteTeam.busy">
                                 <i class="fa fa-btn fa-spinner fa-spin"></i>Deleting
                             </span>
 

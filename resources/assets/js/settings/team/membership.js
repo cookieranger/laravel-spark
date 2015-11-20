@@ -19,9 +19,11 @@ Vue.component('spark-team-settings-membership-screen', {
 
             editingTeamMember: null,
 
-            sendInviteForm: new SparkForm({
-                email: ''
-            })
+            forms: {
+                sendInvite: new SparkForm({
+                    email: ''
+                })
+            }
         };
     },
 
@@ -87,11 +89,11 @@ Vue.component('spark-team-settings-membership-screen', {
         sendInvite: function () {
             var self = this;
 
-            Spark.post('/settings/teams/' + this.team.id + '/invitations', this.sendInviteForm)
+            Spark.post('/settings/teams/' + this.team.id + '/invitations', this.forms.sendInvite)
                 .then(function () {
                     self.$dispatch('updateTeam');
 
-                    self.sendInviteForm.email = '';
+                    self.forms.sendInvite.email = '';
                 });
         },
 

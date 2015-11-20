@@ -1,7 +1,7 @@
 <!-- Settings Subscription Plan Selector -> Single Plan Block -->
 <label>
 	<!-- Radio Button / Plan Name -->
-	<input type="radio" name="plan" value="@{{ plan.id }}" v-model="changePlanForm.plan">
+	<input type="radio" name="plan" value="@{{ plan.id }}" v-model="forms.changePlan.plan">
 
 	&nbsp;
 

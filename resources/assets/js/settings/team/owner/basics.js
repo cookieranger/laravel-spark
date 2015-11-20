@@ -12,9 +12,11 @@ Vue.component('spark-team-settings-owner-basics-screen', {
     		user: null,
     		team: null,
 
-    		updateTeamBasicsForm: new SparkForm({
-    			name: ''
-    		})
+            forms: {
+                updateTeamBasics: new SparkForm({
+                    name: ''
+                })
+            }
     	};
     },
 
@@ -36,7 +38,7 @@ Vue.component('spark-team-settings-owner-basics-screen', {
         teamRetrieved: function (team) {
             this.team = team;
 
-            this.updateTeamBasicsForm.name = this.team.name;
+            this.forms.updateTeamBasics.name = this.team.name;
 
             return true;
         }
@@ -50,7 +52,7 @@ Vue.component('spark-team-settings-owner-basics-screen', {
     	updateTeam: function () {
             var self = this;
 
-            Spark.put('/settings/teams/' + this.team.id, this.updateTeamBasicsForm)
+            Spark.put('/settings/teams/' + this.team.id, this.forms.updateTeamBasics)
                 .then(function () {
                     self.$dispatch('updateTeam');
                     self.$dispatch('updateTeams');

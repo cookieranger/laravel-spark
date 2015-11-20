@@ -15,14 +15,14 @@
     </div>
 
     <div class="panel-body">
-        <spark-error-alert :form="updateCardForm"></spark-error-alert>
+        <spark-error-alert :form="forms.updateCard"></spark-error-alert>
 
-        <div class="alert alert-success" v-if="updateCardForm.successful">
+        <div class="alert alert-success" v-if="forms.updateCard.successful">
             <strong>Done!</strong> Your card has been updated.
         </div>
 
         <form class="form-horizontal" role="form">
-            <div class="form-group" :class="{'has-error': updateCardForm.errors.has('number')}">
+            <div class="form-group" :class="{'has-error': forms.updateCard.errors.has('number')}">
                 <label for="number" class="col-md-4 control-label">Card Number</label>
 
                 <div class="col-md-6">
@@ -31,10 +31,10 @@
                         name="number"
                         data-stripe="number"
                         placeholder="************@{{ user.last_four }}"
-                        v-model="updateCardForm.number">
+                        v-model="forms.updateCard.number">
 
-                    <span class="help-block" v-show="updateCardForm.errors.has('number')">
-                        <strong>@{{ updateCardForm.errors.get('number') }}</strong>
+                    <span class="help-block" v-show="forms.updateCard.errors.has('number')">
+                        <strong>@{{ forms.updateCard.errors.get('number') }}</strong>
                     </span>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <label for="cvc" class="col-md-4 control-label">Security Code</label>
 
                 <div class="col-md-6">
-                    <input type="text" class="form-control" name="cvc" data-stripe="cvc" v-model="updateCardForm.cvc">
+                    <input type="text" class="form-control" name="cvc" data-stripe="cvc" v-model="forms.updateCard.cvc">
                 </div>
             </div>
 
@@ -51,11 +51,11 @@
                 <label class="col-md-4 control-label">Expiration</label>
 
                 <div class="col-md-3">
-                    <input type="text" class="form-control" name="month" placeholder="MM" maxlength="2" data-stripe="exp-month" v-model="updateCardForm.month">
+                    <input type="text" class="form-control" name="month" placeholder="MM" maxlength="2" data-stripe="exp-month" v-model="forms.updateCard.month">
                 </div>
 
                 <div class="col-md-3">
-                    <input type="text" class="form-control" name="year" placeholder="YYYY" maxlength="4" data-stripe="exp-year" v-model="updateCardForm.year">
+                    <input type="text" class="form-control" name="year" placeholder="YYYY" maxlength="4" data-stripe="exp-year" v-model="forms.updateCard.year">
                 </div>
             </div>
 
@@ -63,14 +63,14 @@
                 <label for="zip" class="col-md-4 control-label">ZIP / Postal Code</label>
 
                 <div class="col-md-6">
-                    <input type="text" class="form-control" name="zip" v-model="updateCardForm.zip">
+                    <input type="text" class="form-control" name="zip" v-model="forms.updateCard.zip">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-4">
-                    <button type="submit" class="btn btn-primary" @click.prevent="updateCard" :disabled="updateCardForm.busy">
-                        <span v-if="updateCardForm.busy">
+                    <button type="submit" class="btn btn-primary" @click.prevent="updateCard" :disabled="forms.updateCard.busy">
+                        <span v-if="forms.updateCard.busy">
                             <i class="fa fa-btn fa-spinner fa-spin"></i> Updating
                         </span>
 

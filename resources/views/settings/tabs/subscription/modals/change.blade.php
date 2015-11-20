@@ -7,7 +7,7 @@
 			</div>
 
 			<div class="modal-body">
-				<spark-errors :form="changePlanForm"></spark-errors>
+				<spark-errors :form="forms.changePlan"></spark-errors>
 
 				<!-- Plan Selector -->
 				<div class="row">
@@ -44,8 +44,8 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 
-				<button type="button" class="btn btn-primary" @click.prevent="changePlan" :disabled="changePlanForm.busy">
-					<span v-if="changePlanForm.busy">
+				<button type="button" class="btn btn-primary" @click.prevent="changePlan" :disabled="forms.changePlan.busy">
+					<span v-if="forms.changePlan.busy">
 						<i class="fa fa-btn fa-spinner fa-spin"></i>Changing
 					</span>
 

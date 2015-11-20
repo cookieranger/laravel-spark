@@ -14,11 +14,13 @@ Vue.component('spark-settings-security-password-screen', {
         return {
             user: null,
 
-            updatePasswordForm: new SparkForm({
-                current_password: '',
-                password: '',
-                password_confirmation: ''
-            })
+            forms: {
+                updatePassword: new SparkForm({
+                    current_password: '',
+                    password: '',
+                    password_confirmation: ''
+                })
+            }
         };
     },
 
@@ -42,11 +44,11 @@ Vue.component('spark-settings-security-password-screen', {
         updatePassword: function () {
             var self = this;
 
-            Spark.put('/settings/user/password', this.updatePasswordForm)
+            Spark.put('/settings/user/password', this.forms.updatePassword)
                 .then(function () {
-                    self.updatePasswordForm.current_password = '';
-                    self.updatePasswordForm.password = '';
-                    self.updatePasswordForm.password_confirmation = '';
+                    self.forms.updatePassword.current_password = '';
+                    self.forms.updatePassword.password = '';
+                    self.forms.updatePassword.password_confirmation = '';
                 });
         }
     }

@@ -23,7 +23,7 @@ Vue.component('spark-settings-subscription-screen', {
      * Configure watched data listeners.
      */
     watch: {
-        'subscribeForm.plan': function (value, oldValue) {
+        'forms.subscribe.plan': function (value, oldValue) {
             if (value.length > 0) {
                 setTimeout(function () {
                     $('.spark-first-field').filter(':visible:first').focus();
@@ -45,26 +45,28 @@ Vue.component('spark-settings-subscription-screen', {
 
             plans: [],
 
-            subscribeForm: new SparkForm({
-                plan: '', terms: false, stripe_token: null
-            }),
+            forms: {
+                subscribe: new SparkForm({
+                    plan: '', terms: false, stripe_token: null
+                }),
 
-            cardForm: new SparkForm({
-                number: '', cvc: '', month: '', year: '', zip: ''
-            }),
+                card: new SparkForm({
+                    number: '', cvc: '', month: '', year: '', zip: ''
+                }),
 
-            changePlanForm: new SparkForm({
-                plan: ''
-            }),
+                changePlan: new SparkForm({
+                    plan: ''
+                }),
 
-            updateCardForm: settingsSubscriptionScreenForms.updateCard(),
+                updateCard: settingsSubscriptionScreenForms.updateCard(),
 
-            extraBillingInfoForm: new SparkForm({
-                text: ''
-            }),
+                extraBillingInfo: new SparkForm({
+                    text: ''
+                }),
 
-            resumeSubscriptionForm: new SparkForm({}),
-            cancelSubscriptionForm: new SparkForm({})
+                resumeSubscription: new SparkForm({}),
+                cancelSubscription: new SparkForm({})
+            }
         };
     },
 
@@ -149,7 +151,7 @@ Vue.component('spark-settings-subscription-screen', {
             var self = this;
 
             return _.find(this.plans, function (plan) {
-                return plan.id == self.subscribeForm.plan;
+                return plan.id == self.forms.subscribe.plan;
             });
         },
 
@@ -304,7 +306,7 @@ Vue.component('spark-settings-subscription-screen', {
         userRetrieved: function (user) {
             this.user = user;
 
-            this.extraBillingInfoForm.text = this.user.extra_billing_info;
+            this.forms.extraBillingInfo.text = this.user.extra_billing_info;
 
             if (this.user.stripe_id) {
                 this.getCoupon();
@@ -360,10 +362,10 @@ Vue.component('spark-settings-subscription-screen', {
         subscribe: function () {
             var self = this;
 
-            this.cardForm.errors.forget();
-            this.subscribeForm.errors.forget();
+            this.forms.card.errors.forget();
+            this.forms.subscribe.errors.forget();
 
-            this.subscribeForm.busy = true;
+            this.forms.subscribe.busy = true;
 
             /*
              * Here we will build the payload to send to Stripe, which will
@@ -372,20 +374,20 @@ Vue.component('spark-settings-subscription-screen', {
              */
             var payload = {
                 name: this.user.name,
-                number: this.cardForm.number,
-                cvc: this.cardForm.cvc,
-                exp_month: this.cardForm.month,
-                exp_year: this.cardForm.year,
-                address_zip: this.cardForm.zip
+                number: this.forms.card.number,
+                cvc: this.forms.card.cvc,
+                exp_month: this.forms.card.month,
+                exp_year: this.forms.card.year,
+                address_zip: this.forms.card.zip
             };
 
             Stripe.card.createToken(payload, function (status, response) {
                 if (response.error) {
-                    self.cardForm.errors.set({number: [response.error.message]});
+                    self.forms.card.errors.set({number: [response.error.message]});
 
-                    self.subscribeForm.busy = false;
+                    self.forms.subscribe.busy = false;
                 } else {
-                    self.subscribeForm.stripe_token = response.id;
+                    self.forms.subscribe.stripe_token = response.id;
                     self.sendSubscription();
                 }
             });
@@ -398,7 +400,7 @@ Vue.component('spark-settings-subscription-screen', {
         sendSubscription: function () {
             var self = this;
 
-            Spark.post('/settings/user/plan', this.subscribeForm)
+            Spark.post('/settings/user/plan', this.forms.subscribe)
                 .then(function () {
                     self.$dispatch('updateUser');
                 });
@@ -409,7 +411,7 @@ Vue.component('spark-settings-subscription-screen', {
          * Reset the subscription form plan to allow another plan to be selected.
          */
         selectAnotherPlan: function () {
-            this.subscribeForm.plan = '';
+            this.forms.subscribe.plan = '';
         },
 
 
@@ -417,8 +419,8 @@ Vue.component('spark-settings-subscription-screen', {
          * Show the modal screen to select another subscription plan.
          */
         confirmPlanChange: function() {
-            this.changePlanForm.busy = false;
-            this.changePlanForm.errors.forget();
+            this.forms.changePlan.busy = false;
+            this.forms.changePlan.errors.forget();
 
             $('#modal-change-plan').modal('show');
 
@@ -432,7 +434,7 @@ Vue.component('spark-settings-subscription-screen', {
         changePlan: function() {
             var self = this;
 
-            Spark.put('/settings/user/plan', this.changePlanForm)
+            Spark.put('/settings/user/plan', this.forms.changePlan)
                 .then(function () {
                     self.$dispatch('updateUser');
 
@@ -454,10 +456,10 @@ Vue.component('spark-settings-subscription-screen', {
         updateCard: function () {
             var self = this;
 
-            this.updateCardForm.errors.forget();
+            this.forms.updateCard.errors.forget();
 
-            this.updateCardForm.busy = true;
-            this.updateCardForm.successful = false;
+            this.forms.updateCard.busy = true;
+            this.forms.updateCard.successful = false;
 
             /*
              * Here we will build the payload to send to Stripe, which will
@@ -466,18 +468,18 @@ Vue.component('spark-settings-subscription-screen', {
              */
             var payload = {
                 name: this.user.name,
-                number: this.updateCardForm.number,
-                cvc: this.updateCardForm.cvc,
-                exp_month: this.updateCardForm.month,
-                exp_year: this.updateCardForm.year,
-                address_zip: this.updateCardForm.zip
+                number: this.forms.updateCard.number,
+                cvc: this.forms.updateCard.cvc,
+                exp_month: this.forms.updateCard.month,
+                exp_year: this.forms.updateCard.year,
+                address_zip: this.forms.updateCard.zip
             };
 
             Stripe.card.createToken(payload, function (status, response) {
                 if (response.error) {
-                    self.updateCardForm.errors.set({number: [response.error.message]});
+                    self.forms.updateCard.errors.set({number: [response.error.message]});
 
-                    self.updateCardForm.busy = false;
+                    self.forms.updateCard.busy = false;
                 } else {
                     self.updateCardUsingToken(response.id);
                 }
@@ -493,13 +495,13 @@ Vue.component('spark-settings-subscription-screen', {
                 .success(function () {
                     this.$dispatch('updateUser');
 
-                    this.updateCardForm = settingsSubscriptionScreenForms.updateCard();
-                    this.updateCardForm.successful = true;
+                    this.forms.updateCard = settingsSubscriptionScreenForms.updateCard();
+                    this.forms.updateCard.successful = true;
                 })
                 .error(function (errors) {
-                    this.updateCardForm.busy = false;
+                    this.forms.updateCard.busy = false;
 
-                    this.updateCardForm.errors.set(errors);
+                    this.forms.updateCard.errors.set(errors);
                 });
         },
 
@@ -508,7 +510,7 @@ Vue.component('spark-settings-subscription-screen', {
          * Update the user's extra billing information.
          */
         updateExtraBillingInfo: function () {
-            Spark.put('/settings/user/vat', this.extraBillingInfoForm);
+            Spark.put('/settings/user/vat', this.forms.extraBillingInfo);
         },
 
 
@@ -526,14 +528,14 @@ Vue.component('spark-settings-subscription-screen', {
         cancelSubscription: function () {
             var self = this;
 
-            Spark.delete('/settings/user/plan', this.cancelSubscriptionForm)
+            Spark.delete('/settings/user/plan', this.forms.cancelSubscription)
                 .then(function () {
                     self.$dispatch('updateUser');
 
                     $('#modal-cancel-subscription').modal('hide');
 
                     setTimeout(function () {
-                        self.cancelSubscriptionForm.cancelling = false;
+                        self.forms.cancelSubscription.cancelling = false;
                     }, 500);
                 });
         },
@@ -545,7 +547,7 @@ Vue.component('spark-settings-subscription-screen', {
         resumeSubscription: function () {
             var self = this;
 
-            Spark.post('/settings/user/plan/resume', this.resumeSubscriptionForm)
+            Spark.post('/settings/user/plan/resume', this.forms.resumeSubscription)
                 .then(function () {
                     self.$dispatch('updateUser');
                 });

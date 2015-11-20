@@ -6,7 +6,7 @@
 				<h4 class="modal-title"><i class="fa fa-btn fa-times"></i>Cancel Subscription</h4>
 			</div>
 
-			<spark-errors :form="cancelSubscriptionForm"></spark-errors>
+			<spark-errors :form="forms.cancelSubscription"></spark-errors>
 
 			<div class="modal-body">
 				<p>Are you sure you want to cancel your subscription?</p>
@@ -15,8 +15,8 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 
-				<button type="button" class="btn btn-danger" @click.prevent="cancelSubscription" :disabled="cancelSubscriptionForm.busy">
-					<span v-if=" ! cancelSubscriptionForm.busy">
+				<button type="button" class="btn btn-danger" @click.prevent="cancelSubscription" :disabled="forms.cancelSubscription.busy">
+					<span v-if=" ! forms.cancelSubscription.busy">
 						<i class="fa fa-btn fa-times"></i>Cancel Subscription
 					</span>
 
