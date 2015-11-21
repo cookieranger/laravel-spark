@@ -5,27 +5,15 @@ namespace App;
 use Laravel\Cashier\Billable;
 use Laravel\Spark\Teams\CanJoinTeams;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Foundation\Auth\User as BaseUser;
 use Laravel\Cashier\Contracts\Billable as BillableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Laravel\Spark\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatable;
 use Laravel\Spark\Contracts\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatableContract;
 
-class User extends Model implements AuthorizableContract,
-                                    BillableContract,
-                                    CanResetPasswordContract,
-                                    TwoFactorAuthenticatableContract
+class User extends BaseUser implements BillableContract,
+                                       TwoFactorAuthenticatableContract
 {
-    use Authorizable, Billable, CanResetPassword, TwoFactorAuthenticatable;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
+    use Billable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -33,7 +21,9 @@ class User extends Model implements AuthorizableContract,
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email',
+        'name',
+        'password',
     ];
 
     /**
@@ -51,8 +41,13 @@ class User extends Model implements AuthorizableContract,
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'two_factor_options',
-        'stripe_id', 'stripe_subscription', 'last_four', 'extra_billing_info'
+        'extra_billing_info',
+        'last_four',
+        'password',
+        'remember_token',
+        'stripe_id',
+        'stripe_subscription',
+        'two_factor_options',
     ];
 
     /**
@@ -61,6 +56,7 @@ class User extends Model implements AuthorizableContract,
      * @var array
      */
     protected $dates = [
-        'trial_ends_at', 'subscription_ends_at',
+        'subscription_ends_at',
+        'trial_ends_at',
     ];
 }
