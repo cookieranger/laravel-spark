@@ -11,7 +11,7 @@ Vue.component('spark-settings-subscription-screen', {
      * Bootstrap the component. Load the initial data.
      */
     ready: function () {
-        Stripe.setPublishableKey(STRIPE_KEY);
+        Stripe.setPublishableKey(Spark.stripeKey);
 
         this.getPlans();
 

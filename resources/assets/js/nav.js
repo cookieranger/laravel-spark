@@ -1,4 +1,4 @@
-Vue.component('spark-nav-bar-dropdown', {
+Vue.component('spark-nav-bar-dropdown', $.extend(true, {
     /*
      * Initial state of the component's data.
      */
@@ -30,4 +30,4 @@ Vue.component('spark-nav-bar-dropdown', {
 			return true;
 		}
 	}
-});
+}, Spark.components.navDropdown));

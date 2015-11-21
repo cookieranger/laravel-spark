@@ -45,7 +45,8 @@ require('bootstrap-sass/assets/javascripts/bootstrap');
 Spark.components = {
 	profileBasics: {},
 	teamOwnerBasics: {},
-	editTeamMember: {}
+	editTeamMember: {},
+	navDropdown: {}
 };
 
 /**

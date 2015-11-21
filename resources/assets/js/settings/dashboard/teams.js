@@ -125,9 +125,7 @@ Vue.component('spark-settings-teams-screen', {
          * Accept a pending invitation.
          */
         acceptInvite: function (invite) {
-            this.invitations = _.reject(this.invitations, function (i) {
-                return i.id == invite.id;
-            });
+            this.removeInvitationFromList(invite);
 
             this.$http.post('/settings/teams/invitations/' + invite.id + '/accept')
                 .success(function () {
@@ -141,11 +139,19 @@ Vue.component('spark-settings-teams-screen', {
          * Reject a pending invitation.
          */
         rejectInvite: function (invite) {
+            this.removeInvitationFromList(invite);
+
+            this.$http.delete('settings/teams/invitations/' + invite.id);
+        },
+
+
+        /*
+         * Remove an invitation from the list of invitations.
+         */
+        removeInvitationFromList: function (invite) {
             this.invitations = _.reject(this.invitations, function (i) {
                 return i.id == invite.id;
             });
-
-            this.$http.delete('settings/teams/invitations/' + invite.id);
         },
 
 

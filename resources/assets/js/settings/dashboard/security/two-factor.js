@@ -34,8 +34,7 @@ Vue.component('spark-settings-security-two-factor-screen', {
         userRetrieved: function (user) {
             this.user = user;
 
-            this.forms.enableTwoFactorAuth.country_code = this.user.phone_country_code;
-            this.forms.enableTwoFactorAuth.phone_number = this.user.phone_number;
+            this.updateEnableTwoFactorAuthFormForNewUser(user);
 
             return true;
         }
@@ -43,6 +42,15 @@ Vue.component('spark-settings-security-two-factor-screen', {
 
 
     methods: {
+        /**
+         * Update the user profile form with new user information.
+         */
+        updateEnableTwoFactorAuthFormForNewUser: function (user) {
+            this.forms.enableTwoFactorAuth.country_code = user.phone_country_code;
+            this.forms.enableTwoFactorAuth.phone_number = user.phone_number;
+        },
+
+
         /**
          * Enable two-factor authentication for the user.
          */

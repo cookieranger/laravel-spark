@@ -20,7 +20,7 @@ require('./errors');
 /**
  * Add additional form helpers to the Spark object.
  */
-_.extend(Spark, require('./http'));
+$.extend(Spark, require('./http'));
 
 /**
  * Define the Spark form input components.

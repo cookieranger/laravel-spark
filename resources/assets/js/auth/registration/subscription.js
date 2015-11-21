@@ -5,7 +5,7 @@ Vue.component('spark-subscription-register-screen', {
     ready: function() {
         this.getPlans();
 
-        Stripe.setPublishableKey(STRIPE_KEY);
+        Stripe.setPublishableKey(Spark.stripeKey);
 
         var queryString = URI(document.URL).query(true);
 

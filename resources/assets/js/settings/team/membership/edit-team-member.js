@@ -23,8 +23,8 @@ Vue.component('spark-team-settings-edit-team-member-screen', $.extend(true, {
         /**
          * Watch for updates to the "teamMember" data.
          */
-        'teamMember': function (member) {
-            this.forms.updateTeamMember.role = member.pivot.role;
+        'teamMember': function (teamMember) {
+            this.forms.updateTeamMember.role = teamMember.pivot.role;
         }
     },
 

@@ -3,10 +3,6 @@
 <!-- Scripts -->
 @section('scripts')
 	<script src="https://js.stripe.com/v2/"></script>
-
-	<script>
-		STRIPE_KEY = '{{ config('services.stripe.key') }}';
-	</script>
 @append
 
 <!-- Main Content -->

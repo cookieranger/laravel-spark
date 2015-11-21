@@ -4,7 +4,7 @@
 window.SparkForm = function (data) {
     var form = this;
 
-    _.extend(this, data);
+    $.extend(this, data);
 
     this.errors = new SparkFormErrors();
     this.busy = false;

@@ -9,9 +9,11 @@
 
         // Current Team ID
         @if (Auth::user() && Spark::usingTeams() && Auth::user()->hasTeams())
-            currentTeamId: {{ Auth::user()->currentTeam->id }}
+            currentTeamId: {{ Auth::user()->currentTeam->id }},
         @else
-            currentTeamId: null
+            currentTeamId: null,
         @endif
+
+        stripeKey: '{{ config('services.stripe.key') }}'
     }
 </script>
