@@ -86,8 +86,6 @@ class TeamController extends Controller
     /**
      * Get the invitation for the given code.
      *
-     * User to display coupon during registration.
-     *
      * @param  string  $code
      * @return \Illuminate\Http\Response
      */

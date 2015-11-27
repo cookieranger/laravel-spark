@@ -4,7 +4,7 @@ namespace Laravel\Spark\Http\Controllers\Stripe;
 
 use Laravel\Spark\Spark;
 use Laravel\Spark\Contracts\Billing\InvoiceNotifier;
-use Laravel\Cashier\WebhookController as BaseWebhookController;
+use Laravel\Cashier\Http\Controllers\WebhookController as BaseWebhookController;
 
 class WebhookController extends BaseWebhookController
 {

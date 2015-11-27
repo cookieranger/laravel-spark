@@ -1,13 +1,13 @@
-<div class="panel panel-default" v-if="user.stripe_active">
+<div class="panel panel-default" v-if="userIsSubscribed">
     <div class="panel-heading">
         <div class="pull-left">
             Update Card
         </div>
 
         <div class="pull-right">
-            <span v-if="user.last_four">
+            <span v-if="user.card_last_four">
                 <i class="fa fa-btn fa-cc-@{{ creditCardBrandIcon }}"></i>
-                ************@{{ user.last_four }}
+                ************@{{ user.card_last_four }}
             </span>
         </div>
 
@@ -30,7 +30,7 @@
                         class="form-control"
                         name="number"
                         data-stripe="number"
-                        placeholder="************@{{ user.last_four }}"
+                        placeholder="************@{{ user.card_last_four }}"
                         v-model="forms.updateCard.number">
 
                     <span class="help-block" v-show="forms.updateCard.errors.has('number')">

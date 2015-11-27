@@ -91,7 +91,7 @@ class ProfileController extends Controller
      */
     protected function updateStripeEmailAddress()
     {
-        $customer = Auth::user()->subscription()->getStripeCustomer();
+        $customer = Auth::user()->asStripeCustomer();
 
         $customer->email = Auth::user()->email;
 

@@ -27,8 +27,7 @@ interface UserRepository
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  \Stripe\Customer|null  $stripeCustomer
      * @return void
      */
-    public function createSubscriptionOnStripe(Request $request, $user, $stripeCustomer = null);
+    public function createSubscriptionOnStripe(Request $request, $user);
 }

@@ -1,4 +1,4 @@
-<div class="panel panel-default" v-if="user.stripe_active">
+<div class="panel panel-default" v-if="userIsSubscribed">
 	<div class="panel-heading">Cancel Subscription</div>
 
 	<div class="panel-body">

@@ -52,10 +52,7 @@ class SubscriptionController extends Controller
     {
         $this->validateSubscription($request);
 
-        $stripeCustomer = Auth::user()->stripe_id
-                ? Auth::user()->subscription()->getStripeCustomer() : null;
-
-        $this->users->createSubscriptionOnStripe($request, Auth::user(), $stripeCustomer);
+        $this->users->createSubscriptionOnStripe($request, Auth::user());
 
         event(new Subscribed(Auth::user()));
 
@@ -102,8 +99,7 @@ class SubscriptionController extends Controller
         } elseif (Spark::$swapSubscriptionsWith) {
             $this->callCustomUpdater(Spark::$swapSubscriptionsWith, $request, [Auth::user()]);
         } else {
-            Auth::user()->subscription($request->plan)
-                    ->maintainTrial()->prorate()->swapAndInvoice();
+            Auth::user()->subscription('main')->swap($request->plan);
         }
 
         event(new SubscriptionPlanChanged(Auth::user()));
@@ -148,7 +144,7 @@ class SubscriptionController extends Controller
      */
     public function cancelSubscription()
     {
-        Auth::user()->subscription()->cancelAtEndOfPeriod();
+        Auth::user()->subscription('main')->cancel();
 
         event(new SubscriptionCancelled(Auth::user()));
 
@@ -164,7 +160,7 @@ class SubscriptionController extends Controller
     {
         $user = Auth::user();
 
-        $user->subscription($user->stripe_plan)->skipTrial()->resume();
+        $user->subscription('main')->resume();
 
         event(new SubscriptionResumed(Auth::user()));
 

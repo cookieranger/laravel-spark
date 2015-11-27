@@ -41,7 +41,6 @@ Vue.component('spark-settings-subscription-screen', {
         return {
             user: null,
             currentCoupon: null,
-            creditCardBrand: null,
 
             plans: [],
 
@@ -85,11 +84,37 @@ Vue.component('spark-settings-subscription-screen', {
 
 
         /*
+         * Get the main subscription instance.
+         */
+        subscription: function () {
+            return _.find(this.user.subscriptions, function (subscription) {
+                return subscription.name == 'main';
+            });
+        },
+
+
+        /*
+         * Determine if the user is subscribed to the main plain.
+         */
+        userIsSubscribed: function () {
+            var subscription = this.subscription;
+
+            if (subscription !== 'undefined') {
+                if (subscription.ends_at) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        },
+
+
+        /*
          * Determine if the user is currently on the "grace period".
          */
         userIsOnGracePeriod: function () {
-            if (this.user.subscription_ends_at) {
-                return moment().isBefore(this.user.subscription_ends_at);
+            if (this.subscription.ends_at) {
+                return moment().isBefore(this.subscription.ends_at);
             }
 
             return false;
@@ -100,8 +125,8 @@ Vue.component('spark-settings-subscription-screen', {
          * Determine the date that the user's grace period is over.
          */
         subscriptionEndsAt: function () {
-            if (this.user.subscription_ends_at) {
-                return moment(this.user.subscription_ends_at).format('MMMM Do');
+            if (this.subscription.ends_at) {
+                return moment(this.subscription.ends_at).format('MMMM Do');
             }
         },
 
@@ -135,7 +160,7 @@ Vue.component('spark-settings-subscription-screen', {
             }
 
             var plan = _.find(this.plans, function (plan) {
-                return plan.id == self.user.stripe_plan;
+                return plan.id == self.subscription.stripe_plan;
             });
 
             if (plan !== 'undefined') {
@@ -275,11 +300,11 @@ Vue.component('spark-settings-subscription-screen', {
          * Get the proper brand icon for the customer's credit card.
          */
         creditCardBrandIcon: function () {
-            if (! this.creditCardBrand) {
+            if (! this.user.card_brand) {
                 return 'stripe';
             }
 
-            switch (this.creditCardBrand) {
+            switch (this.user.card_brand) {
                 case 'American Express':
                     return 'amex';
                 case 'Diners Club':
@@ -312,10 +337,6 @@ Vue.component('spark-settings-subscription-screen', {
                 this.getCoupon();
             }
 
-            if (this.user.stripe_active) {
-                this.getCreditCardBrand();
-            }
-
             return true;
         }
     },
@@ -329,18 +350,6 @@ Vue.component('spark-settings-subscription-screen', {
             this.$http.get('spark/api/subscriptions/user/coupon')
                 .success(function (coupon) {
                     this.currentCoupon = coupon;
-                });
-        },
-
-
-
-        /**
-         * Get the credit card brand for the customer.
-         */
-        getCreditCardBrand: function () {
-            this.$http.get('spark/api/subscriptions/user/card/brand')
-                .success(function (response) {
-                    this.creditCardBrand = response.brand;
                 });
         },
 

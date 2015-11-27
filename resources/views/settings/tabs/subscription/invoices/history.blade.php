@@ -20,7 +20,7 @@
 							<strong>{{ $invoice->date()->format('Y-m-d') }}</strong>
 						</td>
 						<td>
-							{{ $invoice->dollars() }}
+							{{ $invoice->total() }}
 						</td>
 						<td class="text-right">
 							<a href="{{ url('settings/user/plan/invoice/'.$invoice->id) }}">

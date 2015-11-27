@@ -92,20 +92,4 @@ class SubscriptionController extends Controller
             abort(404);
         }
     }
-
-    /**
-     * Get the credit card type for the current user.
-     *
-     * @return Resposne
-     */
-    public function getCreditCardBrandForUser()
-    {
-        $user = Auth::user();
-
-        $customer = $user->subscription()->getStripeCustomer();
-
-        $brand = ($customer->default_source) ? $customer->sources->retrieve($customer->default_source)->brand : 'unknown';
-
-        return ['brand' => $brand];
-    }
 }

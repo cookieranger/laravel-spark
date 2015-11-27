@@ -6,12 +6,10 @@ use Laravel\Cashier\Billable;
 use Laravel\Spark\Teams\CanJoinTeams;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as BaseUser;
-use Laravel\Cashier\Contracts\Billable as BillableContract;
 use Laravel\Spark\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatable;
 use Laravel\Spark\Contracts\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatableContract;
 
-class User extends BaseUser implements BillableContract,
-                                       TwoFactorAuthenticatableContract
+class User extends BaseUser implements TwoFactorAuthenticatableContract
 {
     use Billable, TwoFactorAuthenticatable;
 
@@ -41,22 +39,13 @@ class User extends BaseUser implements BillableContract,
      * @var array
      */
     protected $hidden = [
+        'card_brand',
+        'card_last_four',
         'extra_billing_info',
-        'last_four',
         'password',
         'remember_token',
         'stripe_id',
         'stripe_subscription',
         'two_factor_options',
-    ];
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = [
-        'subscription_ends_at',
-        'trial_ends_at',
     ];
 }

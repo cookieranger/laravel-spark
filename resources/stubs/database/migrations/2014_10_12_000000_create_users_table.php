@@ -28,14 +28,10 @@ class CreateUsersTable extends Migration
             $table->integer('current_team_id')->nullable();
 
             // Cashier Columns...
-            $table->tinyInteger('stripe_active')->default(0);
             $table->string('stripe_id')->nullable();
-            $table->string('stripe_subscription')->nullable();
-            $table->string('stripe_plan', 100)->nullable();
-            $table->string('last_four', 4)->nullable();
+            $table->string('card_brand', 25)->nullable();
+            $table->string('card_last_four', 4)->nullable();
             $table->text('extra_billing_info')->nullable();
-            $table->timestamp('trial_ends_at')->nullable();
-            $table->timestamp('subscription_ends_at')->nullable();
 
             $table->timestamps();
         });

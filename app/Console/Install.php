@@ -174,6 +174,13 @@ class Install extends Command
         usleep(1000);
 
         copy(
+            SPARK_PATH.'/resources/stubs/database/migrations/2014_10_12_100000_create_subscriptions_tables.php',
+            database_path('migrations/'.date('Y_m_d_His').'_create_subscriptions_tables.php')
+        );
+
+        usleep(1000);
+
+        copy(
             SPARK_PATH.'/resources/stubs/database/migrations/2014_10_12_200000_create_teams_tables.php',
             database_path('migrations/'.date('Y_m_d_His').'_create_teams_tables.php')
         );

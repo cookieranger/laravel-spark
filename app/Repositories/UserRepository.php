@@ -26,7 +26,9 @@ class UserRepository implements Contract
             $user->currentTeam;
         }
 
-        return $user->withHidden(['last_four', 'extra_billing_info']);
+        $user->subscriptions;
+
+        return $user->withHidden(['card_brand', 'card_last_four', 'extra_billing_info']);
     }
 
     /**
@@ -87,17 +89,16 @@ class UserRepository implements Contract
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  \Stripe\Customer|null  $stripeCustomer
      * @return void
      */
-    public function createSubscriptionOnStripe(Request $request, $user, $stripeCustomer = null)
+    public function createSubscriptionOnStripe(Request $request, $user)
     {
         $plan = Spark::plans()->find($request->plan);
 
-        $subscription = $user->subscription($plan->id);
+        $subscription = $user->newSubscription('main', $plan->id);
 
-        if ($plan->hasTrial() && $stripeCustomer === null) {
-            $subscription->trialFor(Carbon::now()->addDays($plan->trialDays));
+        if ($plan->hasTrial() && ! $user->stripe_id) {
+            $subscription->trialDays($plan->trialDays);
         }
 
         if ($request->coupon) {
@@ -107,22 +108,7 @@ class UserRepository implements Contract
         if (Spark::$createSubscriptionsWith) {
             $this->callCustomUpdater(Spark::$createSubscriptionsWith, $request, [$user, $subscription, $stripeCustomer]);
         } else {
-            $this->createDefaultSubscription($request, $user, $subscription, $stripeCustomer);
+            $subscription->create($request->stripe_token);
         }
-    }
-
-    /**
-     * Create the default stripe subscription for a new registration.
-     *
-     * @param Request $request
-     * @param $user
-     * @param $subscription
-     * @param  \Stripe\Customer|null  $stripeCustomer
-     */
-    protected function createDefaultSubscription(Request $request, $user, $subscription, $stripeCustomer = null)
-    {
-        $subscription->create($request->stripe_token, [
-            'email' => $user->email,
-        ], $stripeCustomer);
     }
 }

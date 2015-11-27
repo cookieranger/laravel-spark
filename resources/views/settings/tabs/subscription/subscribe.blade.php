@@ -1,5 +1,5 @@
 <!-- Subscribe Plan Selector -->
-<div class="panel panel-default" v-if=" ! user.stripe_active && ! userIsOnGracePeriod && ! forms.subscribe.plan">
+<div class="panel panel-default" v-if=" ! userIsSubscribed && ! userIsOnGracePeriod && ! forms.subscribe.plan">
     <div class="panel-heading">Subscribe</div>
 
     <div class="panel-body">
@@ -8,7 +8,7 @@
 </div>
 
 <!-- Plan Is Selected -->
-<div v-if=" ! user.stripe_active && ! userIsOnGracePeriod && forms.subscribe.plan">
+<div v-if=" ! userIsSubscribed && ! userIsOnGracePeriod && forms.subscribe.plan">
     <!-- Selected Plan / Select Another Plan -->
     <div class="panel panel-default">
         <div class="panel-heading">Your Plan</div>
