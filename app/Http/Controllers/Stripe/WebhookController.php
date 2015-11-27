@@ -18,7 +18,7 @@ class WebhookController extends BaseWebhookController
      */
     protected function handleInvoicePaymentSucceeded(array $payload)
     {
-        $model = config('auth.model');
+        $model = config('services.stripe.model');
 
         $user = (new $model)->where(
             'stripe_id', $payload['data']['object']['customer']
