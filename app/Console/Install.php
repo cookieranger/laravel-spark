@@ -174,8 +174,8 @@ class Install extends Command
         usleep(1000);
 
         copy(
-            SPARK_PATH.'/resources/stubs/database/migrations/2014_10_12_100000_create_subscriptions_tables.php',
-            database_path('migrations/'.date('Y_m_d_His').'_create_subscriptions_tables.php')
+            SPARK_PATH.'/resources/stubs/database/migrations/2014_10_12_100000_create_subscriptions_table.php',
+            database_path('migrations/'.date('Y_m_d_His').'_create_subscriptions_table.php')
         );
 
         usleep(1000);
