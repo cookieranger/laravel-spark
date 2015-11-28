@@ -224,10 +224,6 @@ class Install extends Command
             mkdir(base_path('resources/assets/js'));
         }
 
-        if (! is_dir('resources/assets/js/spark')) {
-            mkdir(base_path('resources/assets/js/spark'));
-        }
-
         copy(
             SPARK_PATH.'/resources/stubs/resources/assets/js/app.js',
             base_path('resources/assets/js/app.js')
