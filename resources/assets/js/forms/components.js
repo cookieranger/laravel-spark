@@ -53,7 +53,7 @@ Vue.component('spark-password', {
 
 
 /**
- * Password field input component for Bootstrap.
+ * Select input component for Bootstrap.
  */
 Vue.component('spark-select', {
     props: ['display', 'form', 'name', 'items', 'input'],
