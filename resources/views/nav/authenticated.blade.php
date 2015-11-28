@@ -11,8 +11,8 @@
 			</button>
 
 			<!-- Branding Image -->
-			<a class="navbar-brand" href="/" style="padding-top: 19px;">
-				<i class="fa fa-btn fa-sun-o"></i>Spark
+			<a class="navbar-brand" href="/">
+				Spark
 			</a>
 		</div>
 

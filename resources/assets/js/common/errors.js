@@ -19,6 +19,6 @@ Vue.component('spark-error-alert', {
     props: ['form'],
 
     template: "<div><div class='alert alert-danger' v-if='form.errors && form.errors.hasErrors()'>\
-                <strong>Whoops!</strong> There were some problems with your input.\
+                <i class='fa fa-btn fa-warning'></i><strong>Whoops!</strong> There were some problems with your input.\
             </div></div>"
 });

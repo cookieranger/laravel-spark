@@ -6,7 +6,7 @@
             <spark-error-alert :form="forms.updateProfileBasics"></spark-error-alert>
 
             <div class="alert alert-success" v-if="forms.updateProfileBasics.successful">
-                <strong>Great!</strong> Your profile was successfully updated.
+                <i class="fa fa-btn fa-check-circle"></i>Great! Your profile was successfully updated.
             </div>
 
             <form class="form-horizontal" role="form">
