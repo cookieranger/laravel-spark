@@ -28,6 +28,14 @@ trait CanJoinTeams
     }
 
     /**
+     * Get all of the teams that the user owns.
+     */
+    public function ownedTeams()
+    {
+        return $this->teams()->where("owner_id", $this->getKey());
+    }
+
+    /**
      * Join the team with the given ID.
      *
      * @param  int  $teamId
