@@ -342,7 +342,7 @@ class Spark
             return static::$usingTeams;
         } else {
             return static::$usingTeams = in_array(
-                CanJoinTeams::class, class_uses_recursive(config('auth.model'))
+                CanJoinTeams::class, class_uses_recursive(config('auth.providers.users.model'))
             );
         }
     }

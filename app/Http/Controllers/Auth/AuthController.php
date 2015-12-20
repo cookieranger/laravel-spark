@@ -132,7 +132,7 @@ class AuthController extends Controller
             return redirect('login');
         }
 
-        $model = config('auth.model');
+        $model = config('auth.providers.users.model');
 
         $user = (new $model)->findOrFail(
             $request->session()->pull('spark:auth:id')

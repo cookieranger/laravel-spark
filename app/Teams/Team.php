@@ -29,7 +29,7 @@ class Team extends Model
     public function users()
     {
         return $this->belongsToMany(
-            config('auth.model'), 'user_teams', 'team_id', 'user_id'
+            config('auth.providers.users.model'), 'user_teams', 'team_id', 'user_id'
         )->withPivot('role');
     }
 
@@ -38,7 +38,7 @@ class Team extends Model
      */
     public function owner()
     {
-        return $this->belongsTo(config('auth.model'), 'owner_id');
+        return $this->belongsTo(config('auth.providers.users.model'), 'owner_id');
     }
 
     /**
@@ -57,7 +57,7 @@ class Team extends Model
      */
     public function inviteUserByEmail($email)
     {
-        $model = config('auth.model');
+        $model = config('auth.providers.users.model');
 
         $invitedUser = (new $model)->where('email', $email)->first();
 
@@ -93,7 +93,7 @@ class Team extends Model
     {
         $this->users()->detach([$userId]);
 
-        $userModel = config('auth.model');
+        $userModel = config('auth.providers.users.model');
 
         $removedUser = (new $userModel)->find($userId);
 

@@ -75,7 +75,7 @@ class UserRepository implements Contract
      */
     protected function createDefaultUser(Request $request)
     {
-        $model = config('auth.model');
+        $model = config('auth.providers.users.model');
 
         return (new $model)->create([
             'name' => $request->name,

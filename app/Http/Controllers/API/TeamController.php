@@ -91,7 +91,7 @@ class TeamController extends Controller
      */
     public function getInvitation($code)
     {
-        $model = config('auth.model');
+        $model = config('auth.providers.users.model');
 
         $model = get_class((new $model)->invitations()
                     ->getQuery()->getModel());
