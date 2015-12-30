@@ -8,7 +8,7 @@
 				<div class="panel-body">
 					<div class="alert alert-info">
 						To use two factor authentication, you <strong>must</strong> install the
-						<a href="https://authy.com" target="_blank">Authy</a> application on your phone.
+						<a href="https://authy.com" class="alert-link" target="_blank">Authy</a> application on your phone.
 					</div>
 
             		<spark-error-alert :form="forms.enableTwoFactorAuth"></spark-error-alert>
