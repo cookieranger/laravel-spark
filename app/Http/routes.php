@@ -64,9 +64,7 @@ Route::group(['middleware' => ['web']], function ($router) {
     $router->post('password/email', 'Auth\PasswordController@postEmail');
     $router->get('password/reset/{token}', 'Auth\PasswordController@getReset');
     $router->post('password/reset', 'Auth\PasswordController@postReset');
-});
 
-Route::group(['middleware' => ['api']], function ($router) {
     // User API Routes...
     $router->get('spark/api/users/me', 'API\UserController@getCurrentUser');
 
@@ -85,6 +83,10 @@ Route::group(['middleware' => ['api']], function ($router) {
         $router->get('spark/api/subscriptions/coupon/{code}', 'API\SubscriptionController@getCoupon');
         $router->get('spark/api/subscriptions/user/coupon', 'API\SubscriptionController@getCouponForUser');
     }
+
+});
+
+Route::group(['middleware' => ['api']], function ($router) {
 
     // Stripe Routes...
     if (count(Spark::plans()) > 0) {
