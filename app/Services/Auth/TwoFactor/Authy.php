@@ -28,7 +28,7 @@ class Authy implements Provider
      */
     public function register(TwoFactorAuthenticatable $user)
     {
-        $key = env('AUTHY_KEY');
+        $key = config('services.authy.key');
 
         $response = json_decode((new HttpClient)->post('https://api.authy.com/protected/json/users/new?api_key='.$key, [
             'form_params' => [
@@ -55,7 +55,7 @@ class Authy implements Provider
     public function tokenIsValid(TwoFactorAuthenticatable $user, $token)
     {
         try {
-            $key = env('AUTHY_KEY');
+            $key = config('services.authy.key');
 
             $options = $user->getTwoFactorAuthProviderOptions();
 
@@ -77,7 +77,7 @@ class Authy implements Provider
      */
     public function delete(TwoFactorAuthenticatable $user)
     {
-        $key = env('AUTHY_KEY');
+        $key = config('services.authy.key');
 
         $options = $user->getTwoFactorAuthProviderOptions();
 
