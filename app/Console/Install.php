@@ -108,6 +108,11 @@ class Install extends Command
             SPARK_PATH.'/resources/stubs/config/app.php',
             config_path('app.php')
         );
+        
+        copy(
+            SPARK_PATH.'/resources/stubs/config/services.php',
+            config_path('services.php')
+        );
     }
 
     /**
