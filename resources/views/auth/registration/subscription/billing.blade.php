@@ -82,7 +82,7 @@
 						<span v-else>
 							<i class="fa fa-btn fa-check-circle"></i>
 
-							<span v-if=" ! selectedPlan.trialDays">
+							<span v-if="! selectedPlan || ! selectedPlan.trialDays">
 								Register
 							</span>
 
