@@ -28,7 +28,7 @@ class UserRepository implements Contract
 
         $user->subscriptions;
 
-        return $user->withHidden(['card_brand', 'card_last_four', 'extra_billing_info']);
+        return $user->makeVisible(['card_brand', 'card_last_four', 'extra_billing_info']);
     }
 
     /**
