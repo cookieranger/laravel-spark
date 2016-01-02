@@ -214,7 +214,7 @@ class Install extends Command
         $path = config_path('auth.php');
 
         file_put_contents($path, str_replace(
-            'emails.password', 'spark::emails.auth.password.email', file_get_contents($path)
+            'auth.emails.password', 'spark::emails.auth.password.email', file_get_contents($path)
         ));
     }
 
