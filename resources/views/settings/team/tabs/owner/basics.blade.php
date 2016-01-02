@@ -32,4 +32,4 @@
             </form>
         </div>
     </div>
-</spark-team-settings-owner-screen>
+</spark-team-settings-owner-basics-screen>
