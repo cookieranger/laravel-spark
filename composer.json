@@ -13,7 +13,8 @@
         "php": ">=5.5.9",
         "laravel/cashier": "~6.0",
         "erusev/parsedown": "~1.0",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "dompdf/dompdf": "^0.6.2"
     },
     "autoload": {
         "psr-4": {
