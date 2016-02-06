@@ -332,9 +332,9 @@ class AuthController extends Controller
      */
     public function getLogout(Request $request)
     {
-        $request->session()->flush();
-
         Auth::logout();
+
+        $request->session()->flush();
 
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
